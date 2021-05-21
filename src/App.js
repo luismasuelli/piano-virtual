@@ -1,5 +1,4 @@
 import Piano from './Piano';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {

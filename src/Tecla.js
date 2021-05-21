@@ -6,10 +6,18 @@ const piano = new Piano({
 
 let loaded = false;
 
-piano.toDestination();
-piano.load().then(() => {
-    loaded = true;
-});
+function withPiano(callback) {
+    if (loaded === false) {
+        loaded = null;
+        piano.toDestination();
+        piano.load().then(() => {
+            loaded = true;
+            callback(piano);
+        });
+    } else if (loaded) {
+        callback(piano);
+    }
+}
 
 let keyMapping = {
     'Do1': 'C4',
@@ -44,13 +52,15 @@ export default function Tecla({ nota, pulsada }) {
     let clase = "Tecla " + nota + (negra ? " negra" : " blanca");
     if (pulsada) {
         clase += " pulsada";
-        if (loaded) {
+        withPiano((piano) => {
             piano.keyDown(keyMapping[nota]);
-        }
+            console.log("Pressing: " + keyMapping[nota]);
+        })
     } else {
-        if (loaded) {
+        withPiano((piano) => {
             piano.keyUp(keyMapping[nota]);
-        }
+            console.log("Releasing: " + keyMapping[nota]);
+        })
     }
 
     return <div className={clase} />

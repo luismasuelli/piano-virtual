@@ -5,15 +5,19 @@ export default function Piano(props) {
     let [currentKeys, setCurrentKeys] = useState({});
 
     function onKeyDown(e) {
-        let newCurrentKeys = {...currentKeys};
-        newCurrentKeys[e.key] = true;
-        setCurrentKeys(newCurrentKeys);
+        if (!currentKeys[e.key]) {
+            let newCurrentKeys = {...currentKeys};
+            newCurrentKeys[e.key] = true;
+            setCurrentKeys(newCurrentKeys);
+        }
     }
 
     function onKeyUp(e) {
-        let newCurrentKeys = {...currentKeys};
-        delete newCurrentKeys[e.key];
-        setCurrentKeys(newCurrentKeys);
+        if (currentKeys[e.key]) {
+            let newCurrentKeys = {...currentKeys};
+            delete newCurrentKeys[e.key];
+            setCurrentKeys(newCurrentKeys);
+        }
     }
 
     function pulsada(boton) {
