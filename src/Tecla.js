@@ -1,20 +1,19 @@
 import { Piano } from '@tonejs/piano';
 
-const piano = new Piano({
-    velocities: 5
-});
-
-let loaded = false;
+let piano = null;
 
 function withPiano(callback) {
-    if (loaded === false) {
-        loaded = null;
-        piano.toDestination();
-        piano.load().then(() => {
-            loaded = true;
+    if (piano === null) {
+        piano = false;
+        let newPiano = new Piano({
+            velocities: 5
+        });
+        newPiano.toDestination();
+        newPiano.load().then(() => {
+            piano = newPiano;
             callback(piano);
         });
-    } else if (loaded) {
+    } else if (piano) {
         callback(piano);
     }
 }
