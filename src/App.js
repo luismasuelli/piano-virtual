@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App" tabIndex="0" onKeyDown={(e) => console.log(e)}>
+    <div className="App">
       <Piano/>
     </div>
   );
