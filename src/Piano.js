@@ -3,17 +3,14 @@ import Tecla from './Tecla.js'
 
 export default function Piano(props) {
     let [currentKeys, setCurrentKeys] = useState({});
-    console.log("Teclas actualmente presentes:", currentKeys);
 
     function onKeyDown(e) {
-        console.log("Presionando: " + e.key);
         let newCurrentKeys = {...currentKeys};
         newCurrentKeys[e.key] = true;
         setCurrentKeys(newCurrentKeys);
     }
 
     function onKeyUp(e) {
-        console.log("Soltando: " + e.key);
         let newCurrentKeys = {...currentKeys};
         delete newCurrentKeys[e.key];
         setCurrentKeys(newCurrentKeys);
